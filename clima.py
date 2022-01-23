@@ -1,25 +1,5 @@
-#!/usr/bin/env python
-"""
-Pymodbus Synchronous Client Examples
---------------------------------------------------------------------------
 
-The following is an example of how to use the synchronous modbus client
-implementation from pymodbus.
-
-It should be noted that the client can also be used with
-the guard construct that is available in python 2.5 and up::
-
-    with ModbusClient('127.0.0.1') as client:
-        result = client.read_coils(1,10)
-        print result
-"""
-# --------------------------------------------------------------------------- #
-# import the various client implementations
-# --------------------------------------------------------------------------- #
 from pymodbus.client.sync import ModbusTcpClient as ModbusClient
-# from pymodbus.client.sync import ModbusUdpClient as ModbusClient
-# from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-
 # --------------------------------------------------------------------------- #
 # configure the client logging
 # --------------------------------------------------------------------------- #
@@ -40,9 +20,11 @@ def run_sync_client():
 
     client.connect()
 
+
     import time
     state = 0
     while True:
+        state = 0
         time.sleep(1)
         # READING REGISTERS
         temps = []
@@ -59,10 +41,9 @@ def run_sync_client():
             if tmp>30:
                 state=1
 
-        message="hot" if state else "cold"
+        message="HOT" if state else "COLD"
         print(message)
 
-   
     # ----------------------------------------------------------------------- #
     # close the client
     # ----------------------------------------------------------------------- #
